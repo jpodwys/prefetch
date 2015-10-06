@@ -1,0 +1,21 @@
+{
+  "name": "prefetch",
+  "version": "0.1.0",
+  "description": "Customizable interaction-based link prefetching.",
+  "main": "prefetch.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jpodwys/prefetch"
+  },
+  "author": "Joe Podwys",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jpodwys/prefetch/issues"
+  },
+  "homepage": "https://github.com/jpodwys/prefetch",
+  "keywords": [
+    "prefetch",
+    "link",
+    "hover"
+  ]
+}
