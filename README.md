@@ -15,6 +15,7 @@ There is [between 250ms and 400ms](http://instantclick.io/click-test) from the t
 * Customization: disable an interaction and set a prefetch delay for hover events
 * Automatically works with dynamically added links
 * Identify any number of containers and add more after initialization
+* Identify links to never prefetch even if they're within a prefetchable container
 * Tracks links so a single link is not requested multiple times
 * Prevents attempting to prefetch [links that cannot/should not be prefetched](#what-links-are-prefetchable)
 * [Packaged as a UMD](http://bob.yexley.net/umd-javascript-that-runs-anywhere/)--compatible with CommonJS, AMD, and global scope
@@ -36,6 +37,14 @@ A prefetchable anchor tag must meet the following criteria:
 * Must not have a `download` attribute
 * Must not have already been prefetched
 * The href (with hash removed) must not be the same as `location.href` (with hash removed)
+
+# How do I Blacklist a Link?
+
+Inidividual anchor tags can be blacklisted by simply adding a `data-no-prefetch` attribute as follows:
+
+```html
+<a href="/index" data-no-prefetch>Home</a>
+```
 
 # API
 
