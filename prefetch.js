@@ -66,7 +66,7 @@
         if(!elem.hasAttribute){
           break;
         }
-        if(elem.hasAttribute('data-no-instant')){
+        if(elem.hasAttribute('data-no-prefetch')){
           return true;
         }
       } while(elem = elem.parentNode);
@@ -91,7 +91,7 @@
         link.setAttribute('href', url);
         document.getElementsByTagName('head')[0].appendChild(link);
         if(typeof a === 'object'){
-          a.setAttribute('data-no-instant', '');
+          a.setAttribute('data-no-prefetch', '');
         }
       }
     }
