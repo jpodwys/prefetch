@@ -12,9 +12,8 @@
       self.$prefetchOnMousedown = config.waitForMousedown || false;
       self.$enableTouch = config.enableTouch || false;
       self.$delayBeforePrefetch = config.hoverDelay || 50;
-      config.exclusions = config.exclusions || [];
+      self.$exclusions = config.exclusions || [];
       config.containers = config.containers || [];
-      self.attachExclusions(config.exclusions);
       self.attachListeners(config.containers);
     }
 
@@ -51,15 +50,8 @@
       }
     }
 
-    self.attachExclusions = function(exclusions){
-      for(var i = 0; i < exclusions.length; ++i){
-        var elements = document.querySelectorAll(exclusions[i]);
-        if(elements && elements.length){
-          for(var j = 0; j < elements.length; ++j){
-            elements[j].setAttribute('data-no-prefetch', '');
-          }
-        }
-      }
+    self.addExclusions = function(exclusions){
+      self.$exclusions = self.$exclusions.concat(exclusions);
     }
 
     function removeHash(url){
@@ -90,11 +82,23 @@
       return a.href.indexOf('#') > -1 && removeHash(a.href) === removeHash(location.href);
     }
 
+    function isExcluded(a){
+      if(self.$exclusions.length){
+        for(var i = 0; i < self.$exclusions.length; ++i){
+          if(a.href.indexOf(self.$exclusions[i]) > -1){
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
     function isPrefetchable(a){
       if(a.hasAttribute('download')
         || !a.href
         || isBlacklisted(a)
-        || isSamePage(a)){
+        || isSamePage(a)
+        || isExcluded(a)){
         return false;
       }
       return true;
