@@ -12,7 +12,9 @@
       self.$prefetchOnMousedown = config.waitForMousedown || false;
       self.$enableTouch = config.enableTouch || false;
       self.$delayBeforePrefetch = config.hoverDelay || 50;
+      config.exclusions = config.exclusions || [];
       config.containers = config.containers || [];
+      self.attachExclusions(config.exclusions);
       self.attachListeners(config.containers);
     }
 
@@ -23,7 +25,7 @@
         self.$prefetchTimer = false;
       }
       if(Object.prototype.toString.call(a) === '[object Array]'){
-        for(var i = 0; i < a.length; i++){
+        for(var i = 0; i < a.length; ++i){
           injectPrefetchLink(a[i]);
         }
       }
@@ -33,7 +35,7 @@
     }
 
     self.attachListeners = function(containers){
-      for(var i = 0; i < containers.length; i++){
+      for(var i = 0; i < containers.length; ++i){
         var el = document.querySelector(containers[i]);
         if(el){
           if(self.$enableTouch){
@@ -44,6 +46,17 @@
           }
           else{
             attachListener(el, 'mouseover');
+          }
+        }
+      }
+    }
+
+    self.attachExclusions = function(exclusions){
+      for(var i = 0; i < exclusions.length; ++i){
+        var elements = document.querySelectorAll(exclusions[i]);
+        if(elements && elements.length){
+          for(var j = 0; j < elements.length; ++j){
+            elements[j].setAttribute('data-no-prefetch', '');
           }
         }
       }
@@ -73,11 +86,15 @@
       return false;
     }
 
+    function isSamePage(a){
+      return a.href.indexOf('#') > -1 && removeHash(a.href) === removeHash(location.href);
+    }
+
     function isPrefetchable(a){
       if(a.hasAttribute('download')
         || !a.href
         || isBlacklisted(a)
-        || (a.href.indexOf('#') > -1 && removeHash(a.href) === removeHash(location.href))){
+        || isSamePage(a)){
         return false;
       }
       return true;
