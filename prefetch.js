@@ -76,8 +76,8 @@
     function isPrefetchable(a){
       if(a.hasAttribute('download')
         || !a.href
-        || isBlacklisted(a))
-        || (a.href.indexOf('#') > -1 && removeHash(a.href) === removeHash(location.href)){
+        || isBlacklisted(a)
+        || (a.href.indexOf('#') > -1 && removeHash(a.href) === removeHash(location.href))){
         return false;
       }
       return true;
@@ -147,5 +147,5 @@
     }
   }
     
-  return Prefetch;
+  return new Prefetch();
 });
