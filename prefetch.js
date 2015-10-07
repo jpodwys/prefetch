@@ -10,10 +10,10 @@
     self.init = function(config){
       config = config || {};
       self.$prefetchOnMousedown = config.waitForMousedown || false;
-      self.$enableMobile = config.enableMobile || false;
+      self.$enableTouch = config.enableTouch || false;
       self.$delayBeforePrefetch = config.hoverDelay || 50;
-      config.parentContainers = config.parentContainers || [];
-      self.attachListeners(config.parentContainers);
+      config.containers = config.containers || [];
+      self.attachListeners(config.containers);
     }
 
     self.prefetch = function(a){
@@ -36,7 +36,7 @@
       for(var i = 0; i < containers.length; i++){
         var el = document.querySelector(containers[i]);
         if(el){
-          if(self.$enableMobile){
+          if(self.$enableTouch){
             attachListener(el, 'touchstart');
           }
           if(self.$prefetchOnMousedown){
