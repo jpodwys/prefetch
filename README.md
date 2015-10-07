@@ -12,7 +12,7 @@ Start downloading the next page before the user even clicks!
 * Automatically works with dynamically added links
 * Identify any number of containers and add more after initialization
 * Tracks links so a single link is not requested multiple times
-* Prevents attempting to prefetch [links that cannot/should not be prefetched]('#what-links-are-prefetchable')
+* Prevents attempting to prefetch [links that cannot/should not be prefetched](#what-links-are-prefetchable)
 * [Packaged as a UMD](http://bob.yexley.net/umd-javascript-that-runs-anywhere/)--compatible with CommonJS, AMD, and global scope
 
 # Basic Usage
@@ -22,7 +22,7 @@ var Prefetch = require('prefetch');
 Prefetch.init({containers: ['.primary-nav']});
 ```
 
-This example will listen for a mouseover event on any anchor tags within the element with class `.primary-nav`. If the anchor [is prefetchable]('#what-links-are-prefetchable'), it will be retrieved in the background.
+This example will listen for a mouseover event on any anchor tags within the element with class `.primary-nav`. If the anchor [is prefetchable](#what-links-are-prefetchable), it will be retrieved in the background.
 
 # What Links are Prefetchable?
 
