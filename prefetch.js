@@ -1,6 +1,6 @@
 (function (root, factory) {
-  if (typeof define === 'function' && define.amd) define(factory);
-  else if (typeof exports === 'object') module.exports = factory();
+  if (typeof exports === 'object') module.exports = factory();
+  else if (typeof define === 'function' && define.amd) define(factory);
   else root.Prefetch = factory();
 })(this, function () {
 
@@ -14,7 +14,7 @@
       self.$delayBeforePrefetch = config.hoverDelay || 50;
       self.$exclusions = config.exclusions || [];
       config.containers = config.containers || [];
-      self.attachListeners(config.containers);
+      self.addContainers(config.containers);
     }
 
     self.prefetch = function(a){
@@ -33,7 +33,7 @@
       }
     }
 
-    self.attachListeners = function(containers){
+    self.addContainers = function(containers){
       for(var i = 0; i < containers.length; ++i){
         var el = document.querySelector(containers[i]);
         if(el){
