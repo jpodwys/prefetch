@@ -77,7 +77,7 @@ Allows you to programmatically prefetch fully-qualified URLs outside of user int
 
 * urls: string || array of strings
 
-## .attachListeners(containers)
+## .addContainers(containers)
 
 Allows you to attach additional listeners after the `.init()` call is made. This can be useful if you have an app-wide Prefetch config in shared code but want to add page-specific listeners outside of that shared code.
 
