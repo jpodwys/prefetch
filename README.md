@@ -92,3 +92,7 @@ Allows you to add an array of items to the `exclusions` argument provided at ini
 #### Arguments
 
 * exclusions: array of partial URL strings
+
+# To Do
+
+* Currently, only Chrome evaluates dynamic link prefetch injection. This means that currently, this library only works with Chrome. I plan to replace link prefetch injection with XHR so that this becomes compatible with all browsers.
