@@ -1,5 +1,7 @@
-Copyright (c) 2015 Joe Podwys
-Copyright (c) 2014-2015 Alexandre Dieulot (For segments taken from InstantClick.js)
+/**
+ * Copyright (c) 2015 Joe Podwys
+ * Copyright (c) 2014-2015 Alexandre Dieulot (For segments taken from InstantClick.js)
+ */
 
 (function (root, factory) {
   if (typeof exports === 'object') module.exports = factory();
