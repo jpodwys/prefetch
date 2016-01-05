@@ -88,11 +88,9 @@
     }
 
     function isExcluded(a){
-      if(self.$exclusions.length){
-        for(var i = 0; i < self.$exclusions.length; ++i){
-          if(a.href.indexOf(self.$exclusions[i]) > -1){
-            return true;
-          }
+      for(var i = 0; i < self.$exclusions.length; ++i){
+        if(a.href.indexOf(self.$exclusions[i]) > -1){
+          return true;
         }
       }
       return false;
@@ -109,16 +107,21 @@
       return true;
     }
 
+    function createLinkTag(url){
+      var link = document.createElement('link');
+      link.setAttribute('rel', 'prefetch');
+      link.setAttribute('href', url);
+      return link;
+    }
+
     function injectPrefetchLink(a){
-      if(a && isPrefetchable(a)){
-        var url = (typeof a === 'object') ? a.href : a;
-        var link = document.createElement('link');
-        link.setAttribute('rel', 'prefetch');
-        link.setAttribute('href', url);
+      var url = (typeof a === 'object') ? a.href : a;
+      var link = (url) ? createLinkTag(url) : null;
+      if(link){
         document.getElementsByTagName('head')[0].appendChild(link);
-        if(typeof a === 'object'){
-          a.setAttribute('data-no-prefetch', '');
-        }
+      }
+      if(typeof a === 'object'){
+        a.setAttribute('data-no-prefetch', '');
       }
     }
 
@@ -173,5 +176,7 @@
     }
   }
     
-  return new Prefetch();
+  var p = new Prefetch();
+  p.init();
+  return p;
 });
