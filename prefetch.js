@@ -20,6 +20,7 @@
       self.$exclusions = config.exclusions || [];
       config.containers = config.containers || [];
       self.addContainers(config.containers);
+      return self;
     }
 
     self.prefetch = function(a){
@@ -173,7 +174,5 @@
     }
   }
     
-  var p = new Prefetch();
-  p.init();
-  return p;
+  return new Prefetch().init();
 });
