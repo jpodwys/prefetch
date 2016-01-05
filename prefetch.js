@@ -20,6 +20,7 @@
       self.$exclusions = config.exclusions || [];
       config.containers = config.containers || [];
       self.addContainers(config.containers);
+      return self;
     }
 
     self.prefetch = function(a){
@@ -88,11 +89,9 @@
     }
 
     function isExcluded(a){
-      if(self.$exclusions.length){
-        for(var i = 0; i < self.$exclusions.length; ++i){
-          if(a.href.indexOf(self.$exclusions[i]) > -1){
-            return true;
-          }
+      for(var i = 0; i < self.$exclusions.length; ++i){
+        if(a.href.indexOf(self.$exclusions[i]) > -1){
+          return true;
         }
       }
       return false;
@@ -109,16 +108,22 @@
       return true;
     }
 
+    function createLinkTag(url){
+      var link = document.createElement('link');
+      link.setAttribute('rel', 'prefetch');
+      link.setAttribute('href', url);
+      return link;
+    }
+
     function injectPrefetchLink(a){
-      if(a && isPrefetchable(a)){
-        var url = (typeof a === 'object') ? a.href : a;
-        var link = document.createElement('link');
-        link.setAttribute('rel', 'prefetch');
-        link.setAttribute('href', url);
+      if(!a) return;
+      var url = (typeof a === 'object') ? a.href : a;
+      var link = (url) ? createLinkTag(url) : null;
+      if(link){
         document.getElementsByTagName('head')[0].appendChild(link);
-        if(typeof a === 'object'){
-          a.setAttribute('data-no-prefetch', '');
-        }
+      }
+      if(typeof a === 'object'){
+        a.setAttribute('data-no-prefetch', '');
       }
     }
 
@@ -129,17 +134,13 @@
     }
 
     function mousedown(e){
-      if(self.$lastTouchTimestamp > (new Date().getTime() - 500)){
-        return;
-      }
+      if(self.$lastTouchTimestamp > (new Date().getTime() - 500)) return;
       var a = getLinkTarget(e.target);
       injectPrefetchLink(a);
     }
 
     function mouseover(e){
-      if(self.$lastTouchTimestamp > (new Date().getTime() - 500)){
-        return;
-      }
+      if(self.$lastTouchTimestamp > (new Date().getTime() - 500)) return;
       var a = getLinkTarget(e.target);
       if(a && isPrefetchable(a)){
         a.addEventListener('mouseout', mouseout);
@@ -173,5 +174,5 @@
     }
   }
     
-  return new Prefetch();
+  return new Prefetch().init();
 });
