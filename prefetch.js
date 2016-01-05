@@ -115,6 +115,7 @@
     }
 
     function injectPrefetchLink(a){
+      if(!a) return;
       var url = (typeof a === 'object') ? a.href : a;
       var link = (url) ? createLinkTag(url) : null;
       if(link){
@@ -132,17 +133,13 @@
     }
 
     function mousedown(e){
-      if(self.$lastTouchTimestamp > (new Date().getTime() - 500)){
-        return;
-      }
+      if(self.$lastTouchTimestamp > (new Date().getTime() - 500)) return;
       var a = getLinkTarget(e.target);
       injectPrefetchLink(a);
     }
 
     function mouseover(e){
-      if(self.$lastTouchTimestamp > (new Date().getTime() - 500)){
-        return;
-      }
+      if(self.$lastTouchTimestamp > (new Date().getTime() - 500)) return;
       var a = getLinkTarget(e.target);
       if(a && isPrefetchable(a)){
         a.addEventListener('mouseout', mouseout);
