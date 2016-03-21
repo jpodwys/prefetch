@@ -10,6 +10,7 @@ There is [between 250ms and 400ms](http://instantclick.io/click-test) from the t
 
 # Features
 
+* No external dependencies
 * Prefetch links based on hover, mousedown, or touchstart
 * Programmatic background asset prefetching
 * Customization: disable an interaction and set a prefetch delay for hover events
