@@ -163,7 +163,7 @@
 
     function attachListener(el, type){
       el.addEventListener(type, function (e){
-        if(e.target.matches('a')){
+        if(e.target.matches('a') || getLinkTarget(e.target)){
           switch(type){
             case 'touchstart': touchstart(e); break;
             case 'mousedown':  mousedown(e);  break;
@@ -173,6 +173,6 @@
       });
     }
   }
-    
+
   return new Prefetch().init();
 });
