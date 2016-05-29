@@ -125,7 +125,7 @@
       if(!a || !a.href) return;
       var url = (typeof a === 'object') ? a.href : a;
       if(self.$callback){
-        self.$callback(url, a);
+        self.$callback(url, a, injectPrefetchLink);
       }
       else{
         injectPrefetchLink(url);
