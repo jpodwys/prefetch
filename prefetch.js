@@ -18,6 +18,7 @@
       self.$enableTouch = config.enableTouch || false;
       self.$delayBeforePrefetch = config.hoverDelay || 50;
       self.$exclusions = config.exclusions || [];
+      self.$callback = config.callback;
       config.containers = config.containers || [];
       self.addContainers(config.containers);
       return self;
@@ -31,11 +32,11 @@
       }
       if(Object.prototype.toString.call(a) === '[object Array]'){
         for(var i = 0; i < a.length; ++i){
-          injectPrefetchLink(a[i]);
+          execute(a[i]);
         }
       }
       else{
-        injectPrefetchLink(a);
+        execute(a);
       }
     }
 
@@ -115,12 +116,19 @@
       return link;
     }
 
-    function injectPrefetchLink(a){
-      if(!a) return;
+    function injectPrefetchLink(url){
+      var link = createLinkTag(url);
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+
+    function execute(a){
+      if(!a || !a.href) return;
       var url = (typeof a === 'object') ? a.href : a;
-      var link = (url) ? createLinkTag(url) : null;
-      if(link){
-        document.getElementsByTagName('head')[0].appendChild(link);
+      if(self.$callback){
+        self.$callback(url, a);
+      }
+      else{
+        injectPrefetchLink(url);
       }
       if(typeof a === 'object'){
         a.setAttribute('data-no-prefetch', '');
@@ -130,13 +138,13 @@
     function touchstart(e){
       self.$lastTouchTimestamp = new Date().getTime();
       var a = getLinkTarget(e.target);
-      injectPrefetchLink(a);
+      execute(a);
     }
 
     function mousedown(e){
       if(self.$lastTouchTimestamp > (new Date().getTime() - 500)) return;
       var a = getLinkTarget(e.target);
-      injectPrefetchLink(a);
+      execute(a);
     }
 
     function mouseover(e){
@@ -145,7 +153,7 @@
       if(a && isPrefetchable(a)){
         a.addEventListener('mouseout', mouseout);
         if(!self.$delayBeforePrefetch){
-          injectPrefetchLink(a);
+          execute(a);
         }
         else{
           self.$anchorToPrefetch = a;
