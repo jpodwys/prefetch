@@ -13,7 +13,9 @@ There is [between 250ms and 400ms](http://instantclick.io/click-test) from the t
 * No external dependencies
 * Prefetch links based on hover, mousedown, or touchstart
 * Programmatic background asset prefetching
-* Customization: disable an interaction and set a prefetch delay for hover events
+* Customizable
+  * disable an interaction and set a prefetch delay for hover events
+  * [pass a custom callback](#using-the-callback-config-property) to override the default link injection behavior
 * Automatically works with dynamically added links
 * Identify any number of containers and add more after initialization
 * Identify links to never prefetch ([by attribute or href](#how-do-i-blacklist-a-link)) even if they're within a prefetchable container
@@ -66,7 +68,8 @@ Prefetch.init({
   exclusions: [],           //An array of partial links passed as strings--if the potential prefetch link contains any of these partial links, it will be ignored
   hoverDelay: 50,           //The number of miliseconds after which a sustained hover triggers a link prefetch
   enableTouch: false,       //Whether to prefetch on touchstart and therefore on mobile
-  waitForMousedown: false   //Whether to prefetch on mousedown instead of on hover
+  waitForMousedown: false,  //Whether to prefetch on mousedown instead of on hover
+  callback: undefined       //A function that overrides the default link injection behavior
 });
 ```
 
@@ -93,3 +96,23 @@ Allows you to add an array of items to the `exclusions` argument provided at ini
 #### Arguments
 
 * exclusions: array of partial URL strings
+
+# Using the `callback` config property
+
+By default, `prefetch` injects a `<link rel="prefetch" href="..."/>` tag in the document's head, but there may be times when it's useful to override that behavior. You can do so by adding a `callback` property to the `config` object you pass to `prefetch.init(config)`.
+
+The `callback` param must be a function and it accepts up to three parameters. In the exampmle below, the callback function evaluates the href's URL and, based on the presence of some identifier, decides whether to execute an ajax call or procede with the normal `prefetch` behavior.
+
+```javascript
+function handlePrefetch(url, anchor, fetch){
+  //url: the string from the href attribute of the anchor tag over which the user's cursor hovered
+  //anchor: the <a> tag over which the user's cursor hovered
+  //fetch: the function that prefetch internally executes to inject a prefetch link
+  
+  if(url.indexOf('some-identifier') > 0){
+    doAjaxCall(url);
+  } else {
+    fetch(url);
+  }
+}
+```
