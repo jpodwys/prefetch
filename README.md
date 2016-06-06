@@ -104,15 +104,15 @@ By default, `prefetch` injects a `<link rel="prefetch" href="..."/>` tag in the 
 The `callback` param must be a function and it accepts up to three parameters. In the example below, the callback function evaluates the href's URL and, based on the presence of some identifier, decides whether to execute an ajax call or procede with the normal `prefetch` behavior.
 
 ```javascript
-function handlePrefetch(url, anchor, fetch){
+function handlePrefetch(url, anchor, injectPrefetchLink){
   //url: the string from the href attribute of the anchor tag over which the user's cursor hovered
   //anchor: the <a> tag over which the user's cursor hovered
-  //fetch: the function that prefetch internally executes to inject a prefetch link
+  //injectPrefetchLink: the function that prefetch internally executes to inject a prefetch link
   
   if(url.indexOf('some-identifier') > 0){
     doAjaxCall(url);
   } else {
-    fetch(url);
+    injectPrefetchLink(url);
   }
 }
 ```
