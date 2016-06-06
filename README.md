@@ -101,7 +101,7 @@ Allows you to add an array of items to the `exclusions` argument provided at ini
 
 By default, `prefetch` injects a `<link rel="prefetch" href="..."/>` tag in the document's head, but there may be times when it's useful to override that behavior. You can do so by adding a `callback` property to the `config` object you pass to `prefetch.init(config)`.
 
-The `callback` param must be a function and it accepts up to three parameters. In the exampmle below, the callback function evaluates the href's URL and, based on the presence of some identifier, decides whether to execute an ajax call or procede with the normal `prefetch` behavior.
+The `callback` param must be a function and it accepts up to three parameters. In the example below, the callback function evaluates the href's URL and, based on the presence of some identifier, decides whether to execute an ajax call or procede with the normal `prefetch` behavior.
 
 ```javascript
 function handlePrefetch(url, anchor, fetch){
