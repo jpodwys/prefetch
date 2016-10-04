@@ -1,6 +1,6 @@
 {
   "name": "prefetch",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Customizable interaction-based link prefetching.",
   "main": "prefetch.js",
   "repository": {

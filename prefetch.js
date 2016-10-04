@@ -138,13 +138,17 @@
     function touchstart(e){
       self.$lastTouchTimestamp = new Date().getTime();
       var a = getLinkTarget(e.target);
-      execute(a);
+      if(a && isPrefetchable(a)){
+        execute(a);
+      }
     }
 
     function mousedown(e){
       if(self.$lastTouchTimestamp > (new Date().getTime() - 500)) return;
       var a = getLinkTarget(e.target);
-      execute(a);
+      if(a && isPrefetchable(a)){
+        execute(a);
+      }
     }
 
     function mouseover(e){
