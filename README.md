@@ -8,6 +8,8 @@ Start downloading the next page before the user even clicks!
 
 There is [between 250ms and 400ms](http://instantclick.io/click-test) from the time a user starts hovering over a link they fully intend to click and actually clicking it. That's unnecessary latency! Prefetch makes pages load up to 400ms faster by requesting them as soon as the user begins hovering over a link. Awesome, right?
 
+Check out [this blog](https://jakobanderson.com/) that uses prefetch to see how fast it can make your navigation feel!
+
 # Features
 
 * No external dependencies
